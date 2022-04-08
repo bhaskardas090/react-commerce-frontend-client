@@ -24,7 +24,6 @@ const Slider = () => {
   }
   return (
     <div className={styles.slider}>
-      {/* <div className={styles.slider__container} >   */}
       <BsArrowBarLeft className={styles.slider__leftarrow} onClick={() => handleArrow("left")}/>
       <div className={styles.slider__container}>
           <div className={styles.slider__container__slide} style={{backgroundColor:`#${sliderItems[counter].bg}`}}>
@@ -37,7 +36,6 @@ const Slider = () => {
           </div>
       </div>
       <BsArrowBarRight className={styles.slider__rightarrow} onClick={() => handleArrow("right")}/>
-      {/* </div>   */}
     </div>
   )
 }
