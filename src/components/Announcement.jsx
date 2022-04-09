@@ -1,11 +1,19 @@
 import React from 'react'
-import styles from './announcement.module.css';
+import styled from 'styled-components';
+
 const Announcement = () => {
-  return (
-    <div className={styles.announcement}>
-      <p className={styles.announcement__title}>Super Deal! Free Shipping on Order Above 50$</p>
-    </div>
-  )
+  return  <AnnouncementContainer>Super Deal! Free Shipping on Order Above 50$</AnnouncementContainer>
+  
 }
 
-export default Announcement
+export default Announcement;
+
+const AnnouncementContainer = styled.div`
+  background-color:teal;
+  height: 4rem;
+  font-size: 1.8rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`

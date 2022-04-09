@@ -1,20 +1,60 @@
 import React from 'react'
-import styles from './categories.module.css';
 import {categories} from '../data';
+import styled from 'styled-components';
+
 const Categories = () => {
   return (
-    <div className={styles.categories}>
-      <div className={styles.categories__container}>
+    <CategoriesContainer>
         {categories.map(cat => (
-          <div className={styles.categories__container__category}>
-            <img src={cat.image} alt={cat.title} className={styles.categories__container__img}/>
-            <h2 className={styles.categories__container__title}>{cat.title}</h2>
-            <button className={styles.categories__container__button}>SHOP NOW</button>
-          </div>
+          <Category>
+            <Image src={cat.image} alt={cat.title}/>
+            <CategoryDetails>
+              <Title>{cat.title}</Title>
+              <Button>SHOP NOW</Button>
+            </CategoryDetails>
+          </Category>
         ))}
-      </div>
-    </div>
+    </CategoriesContainer>
   )
 }
 
-export default Categories
+export default Categories;
+
+const CategoriesContainer = styled.div`
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+`;
+const Category = styled.div`
+  position: relative;
+`;
+const Image = styled.img`
+  width: 32vw;
+  height: 500px;
+  object-fit: cover;
+`;
+const CategoryDetails = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+const Title = styled.h1`
+  font-size: 3rem;
+  color: white;
+  text-align:center;
+  margin-bottom: 20px;
+`;
+const Button = styled.button`
+  width: 120px;
+  background-color: white;
+  border: none;
+  font-size:  1.8rem;
+  cursor: pointer;
+  padding: 10px;
+`
