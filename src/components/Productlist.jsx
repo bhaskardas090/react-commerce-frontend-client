@@ -1,17 +1,23 @@
-import React, { useState } from 'react'
-import styles from './productlist.module.css';
+import React from 'react'
 import {popularProducts as products} from '../data';
 import Product from './Product';
-
+import styled from 'styled-components';
 const Productlist = () => {
-  const [hover, setHover] = useState(false);
   return (
-    <div className={styles.productlist}>
+    <ProductList>
       {products.map(product => (
         <Product product={product} key={product.id}/>
       ))}
-    </div>
+    </ProductList>
   )
 }
+export default Productlist;
 
-export default Productlist
+// ! productlist.module.css
+
+const ProductList = styled.div`
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 20px;
+`

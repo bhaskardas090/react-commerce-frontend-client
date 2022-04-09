@@ -19,6 +19,8 @@ const Product = ({product}) => {
 
 export default Product;
 
+// ! product.module.css
+
 const Actions = styled.div`
   width: 100%;
   height: 100%;
