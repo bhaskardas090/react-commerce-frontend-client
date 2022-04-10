@@ -1,6 +1,7 @@
 import './App.css';
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
+import Register from './pages/Register';
 import SingleProduct from './pages/SingleProduct';
 
 const App = () => {
@@ -8,7 +9,8 @@ const App = () => {
     <div className="App">
       {/* <Home /> */}
       {/* <ProductList /> */}
-      <SingleProduct />
+      {/* <SingleProduct /> */}
+      <Register />
     </div>
   );
 };

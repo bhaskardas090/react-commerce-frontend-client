@@ -58,7 +58,6 @@ const ProductImage = styled.img`
   margin-left: 5%;
   height: calc(90vh - 90px);
   object-fit: cover;
-
 `
 const ProductDetails = styled.div`
   margin-left: 5%;
