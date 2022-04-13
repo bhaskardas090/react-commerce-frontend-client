@@ -1,6 +1,7 @@
 import React from 'react'
 import {categories} from '../data';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const Categories = () => {
   return (
@@ -10,7 +11,7 @@ const Categories = () => {
             <Image src={cat.image} alt={cat.title}/>
             <CategoryDetails>
               <Title>{cat.title}</Title>
-              <Button>SHOP NOW</Button>
+              <Button><Link to="/products" style={{fontSize:'inherit', color:'inherit', textDecoration:'none'}}>SHOP NOW</Link></Button>
             </CategoryDetails>
           </Category>
         ))}

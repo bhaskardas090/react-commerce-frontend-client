@@ -1,6 +1,7 @@
 import React from 'react'
 import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -14,13 +15,15 @@ const Navbar = () => {
           </SearchIcon>
         </Form>
       </Left>
-      <Logo>RECO.</Logo>
+      <Logo><Link to="/" style={{fontSize:'inherit', color:'inherit', textDecoration:'none'}}>RECO.</Link></Logo>
       <Right>
-        <Link>REGISTER</Link>
-        <Link>LOG IN</Link>
+        <NavLink><Link to="/register" style={{fontSize:'inherit', color:'inherit', textDecoration:'none'}}>REGISTER</Link></NavLink>
+        <NavLink><Link to="/login" style={{fontSize:'inherit', color:'inherit', textDecoration:'none'}}>LOG IN</Link></NavLink>
         <CartSection>
+          <Link to="/cart" style={{fontSize:'inherit', color:'inherit', textDecoration:'none'}}>
           <AiOutlineShoppingCart style={{fontSize:'2.5rem'}}/>
           <CartCount>7</CartCount>
+          </Link>
         </CartSection>
       </Right>
     </NavbarContainer>
@@ -76,7 +79,7 @@ const Right = styled.div`
   align-items: center;
   margin-right: 20px;  
 `
-const Link = styled.div`
+const NavLink = styled.div`
   margin: 0 20px;
   font-size: 1.8rem;
   cursor: pointer;  

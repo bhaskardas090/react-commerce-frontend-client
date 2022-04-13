@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { AiOutlineShoppingCart, AiOutlineSearch, AiOutlineHeart } from "react-icons/ai";
-
+import {Link} from 'react-router-dom';
 const Product = ({product}) => {
   return (
     <>
@@ -9,7 +9,7 @@ const Product = ({product}) => {
       <Image src={product.image}/>
       <Actions>
         <Icon><AiOutlineShoppingCart style={{fontSize:'27px'}}/></Icon>
-        <Icon><AiOutlineSearch style={{fontSize:'27px'}}/></Icon>
+        <Icon><Link to={`/product/${product.id}`} style={{color:"inherit"}}><AiOutlineSearch style={{fontSize:'27px'}}/></Link></Icon>
         <Icon><AiOutlineHeart style={{fontSize:'27px'}}/></Icon>
       </Actions>
     </Container>
@@ -30,7 +30,7 @@ const Actions = styled.div`
   align-items: center;
   justify-content: center;
   visibility: hidden;
-  transition: all 0.5 ease-in;
+  transition: all 0.2s ease;
 
 `;
 const Container = styled.div`
