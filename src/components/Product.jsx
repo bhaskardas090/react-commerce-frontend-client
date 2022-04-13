@@ -9,7 +9,7 @@ const Product = ({product}) => {
       <Image src={product.image}/>
       <Actions>
         <Icon><AiOutlineShoppingCart style={{fontSize:'27px'}}/></Icon>
-        <Icon><Link to={`/product/${product.id}`} style={{color:"inherit"}}><AiOutlineSearch style={{fontSize:'27px'}}/></Link></Icon>
+        <Icon><Link to={`/product/${product._id}`} style={{color:"inherit"}}><AiOutlineSearch style={{fontSize:'27px'}}/></Link></Icon>
         <Icon><AiOutlineHeart style={{fontSize:'27px'}}/></Icon>
       </Actions>
     </Container>

@@ -1,12 +1,30 @@
-import React from 'react'
-import {popularProducts as products} from '../data';
+import React, { useState } from 'react'
+import {popularProducts} from '../data';
 import Product from './Product';
 import styled from 'styled-components';
-const Productlist = () => {
+import axios from 'axios';
+import { useEffect } from 'react';
+const Productlist = ({filters, sort, category}) => {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    const getProducts = async() => {
+      try {
+        const {data} = await axios.get(category ? `http://localhost:5000/api/products?category=${category}` : "http://localhost:5000/api/products");
+        setProducts(data);
+        console.log("products api call",data)
+        
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getProducts()
+  }, [])
+  
   return (
     <ProductList>
       {products.map(product => (
-        <Product product={product} key={product.id}/>
+        <Product product={product} key={product._id}/>
       ))}
     </ProductList>
   )

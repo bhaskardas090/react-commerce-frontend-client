@@ -1,16 +1,34 @@
 import React from 'react'
 import styled from 'styled-components'
-const Filter = () => {
+const Filter = ({setFilters, setSort, filters}) => {
+  const handleFilter = (e) => {
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.value
+    })
+  } 
+
+  const handleSort = (e) => {
+    setSort(e.target.value);
+  }
+
+  const handleClick = (e) => {
+    e.target[0].disabled = true;
+
+  }
+
   return (
     <FilterContainer>
       <FilterPart>
         <Title>Filter Products:</Title>
-        <Choice name="colors">
+        <Choice name="colors" onChange={handleFilter} onClick={handleClick}>
+          <Select>Color</Select>
           <Select value="yellow">Yellow</Select>
           <Select value="red">Red</Select>
           <Select value="orange">Orange</Select>
         </Choice>
-        <Choice name="size">
+        <Choice name="size" onChange={handleFilter} onClick={handleClick}>
+          <Select>Size</Select>
           <Select value="m">M</Select>
           <Select value="l">L</Select>
           <Select value="xl">XL</Select>
@@ -18,8 +36,9 @@ const Filter = () => {
       </FilterPart>
       <SortPart>
         <Title>Sort Products:</Title>
-        <Choice name="sort">
-          <Select value="new">Newest</Select>
+        <Choice name="sort" onChange={handleSort} onClick={handleClick}>
+          <Select >Sort</Select>
+          <Select value="newest">Newest</Select>
           <Select value="asc">Price(asc)</Select>
           <Select value="desc">Price(desc)</Select>
         </Choice>

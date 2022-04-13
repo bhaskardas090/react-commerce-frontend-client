@@ -7,11 +7,11 @@ const Categories = () => {
   return (
     <CategoriesContainer>
         {categories.map(cat => (
-          <Category>
+          <Category key={cat.id}>
             <Image src={cat.image} alt={cat.title}/>
             <CategoryDetails>
               <Title>{cat.title}</Title>
-              <Button><Link to="/products" style={{fontSize:'inherit', color:'inherit', textDecoration:'none'}}>SHOP NOW</Link></Button>
+              <Button><Link to={`/products/${cat.cat}`} style={{fontSize:'inherit', color:'inherit', textDecoration:'none'}}>SHOP NOW</Link></Button>
             </CategoryDetails>
           </Category>
         ))}
