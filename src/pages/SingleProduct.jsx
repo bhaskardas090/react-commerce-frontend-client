@@ -3,25 +3,39 @@ import Announcement from '../components/Announcement'
 import Navbar from '../components/Navbar'
 import styled from 'styled-components';
 import Footer from '../components/Footer';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 const SingleProduct = () => {
+  const [product, setProduct] = useState({})
+  const {id} = useParams();
+
+  useEffect(() => {
+    const getProduct = async() => {
+      const {data} = await axios.get(`http://localhost:5000/api/products/find/${id}`)
+      console.log(data)
+      setProduct(data);
+    }
+    getProduct();
+  },[id])
+
   return (
     <>
       <Navbar/>
       <Announcement/>
 
       <SingleProductContainer>
-        <ProductImage src="https://i.ibb.co/S6qMxwr/jean.jpg" alt="product_image"/>
+        <ProductImage src={product.image} alt="product_image"/>
         <ProductDetails>
-          <Title name="product_name">Denim Jumpsuit</Title>
-          <Description name="product_desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus molestias, in ratione, repellendus reiciendis officia dolorum voluptatum vel, provident vitae id cupiditate omnis pariatur commodi maiores! Voluptate atque laudantium illo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos nostrum adipisci, nobis at quam alias impedit voluptate in temporibus iure hic omnis nulla voluptatibus nemo nesciunt similique laudantium aperiam consequatur.</Description>
-          <Title name="product_price">$ 90</Title>
+          <Title name="product_name">{product.title}</Title>
+          <Description name="product_desc">{product.desc}</Description>
+          <Title name="product_price">$ {product.price}</Title>
           <ProductFilter>
             <FilterWrapper>
               <SubTitle>Color: </SubTitle>
-                <SelectColor color="black" />
-                <SelectColor color="darkblue"/>
-                <SelectColor color="gray"/>
-            </FilterWrapper>
+                {product?.color?.map(c => <SelectColor color={c}/>)}
+              </FilterWrapper>
             <FilterWrapper>
               <SubTitle>Size: </SubTitle>
               <Choice name="size">

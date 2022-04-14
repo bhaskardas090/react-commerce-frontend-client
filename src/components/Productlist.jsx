@@ -1,31 +1,37 @@
 import React, { useState } from 'react'
-import {popularProducts} from '../data';
+// import {popularProducts} from '../data';
 import Product from './Product';
 import styled from 'styled-components';
-import axios from 'axios';
 import { useEffect } from 'react';
-const Productlist = ({filters, sort, category}) => {
-  const [products, setProducts] = useState([])
+import axios from 'axios';
 
+const Productlist = ({categoryProducts, filteredProducts}) => {
+  const [products, setProducts] = useState([])
   useEffect(() => {
     const getProducts = async() => {
       try {
-        const {data} = await axios.get(category ? `http://localhost:5000/api/products?category=${category}` : "http://localhost:5000/api/products");
-        setProducts(data);
-        console.log("products api call",data)
-        
+        const {data} = await axios.get("http://localhost:5000/api/products");
+        setProducts(data);     
       } catch (err) {
-        console.log(err)
+        console.log(err) 
       }
     }
     getProducts()
   }, [])
-  
+
+  if(filteredProducts?.length) return (
+    <ProductList>
+      {filteredProducts.map(product => <Product product={product} key={product._id}/>)}
+    </ProductList>
+  )
+   if(categoryProducts?.length) return (
+    <ProductList>
+      {categoryProducts.map(product => <Product product={product} key={product._id}/>)}
+    </ProductList>
+  )
   return (
     <ProductList>
-      {products.map(product => (
-        <Product product={product} key={product._id}/>
-      ))}
+      {products.map(product => <Product product={product} key={product._id}/>)}
     </ProductList>
   )
 }

@@ -1,37 +1,45 @@
 import React from 'react'
 import styled from 'styled-components'
-const Filter = ({setFilters, setSort, filters}) => {
+const Filter = ({filters, setFilters, setSort, filteredProducts, setFilteredProducts, categoryProducts}) => {
   const handleFilter = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value
-    })
+    const {name,value}=e.target;
+    const updatedFilters = {...filters, [name]: value};
+    // const updatedFilters = {...filters,[e.target.name]:e.target.value}
+    setFilters(updatedFilters)
+    setFilteredProducts(categoryProducts.filter(product => Object.entries(updatedFilters).every(([key,value]) => {
+        return product[key].includes(value);
+      })
+    ))
+    console.log("Filtered Products: ",filteredProducts)
   } 
 
   const handleSort = (e) => {
     setSort(e.target.value);
-  }
+  } 
 
   const handleClick = (e) => {
     e.target[0].disabled = true;
-
   }
 
   return (
     <FilterContainer>
       <FilterPart>
         <Title>Filter Products:</Title>
-        <Choice name="colors" onChange={handleFilter} onClick={handleClick}>
+        <Choice name="color" onChange={handleFilter} onClick={handleClick}>
           <Select>Color</Select>
           <Select value="yellow">Yellow</Select>
           <Select value="red">Red</Select>
           <Select value="orange">Orange</Select>
+          <Select value="blue">Blue</Select>
+          <Select value="violet">violet</Select>
         </Choice>
         <Choice name="size" onChange={handleFilter} onClick={handleClick}>
           <Select>Size</Select>
-          <Select value="m">M</Select>
-          <Select value="l">L</Select>
-          <Select value="xl">XL</Select>
+          <Select value="S">S</Select>
+          <Select value="M">M</Select>
+          <Select value="L">L</Select>
+          <Select value="XL">XL</Select>
+          <Select value="XXL">XXL</Select>
         </Choice>
       </FilterPart>
       <SortPart>
