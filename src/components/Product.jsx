@@ -6,7 +6,7 @@ const Product = ({product}) => {
   return (
     <>
     <Container>
-      <Image src={product.image}/>
+      <Image src={product.img}/>
       <Actions>
         <Icon><AiOutlineShoppingCart style={{fontSize:'27px'}}/></Icon>
         <Icon><Link to={`/product/${product._id}`} style={{color:"inherit"}}><AiOutlineSearch style={{fontSize:'27px'}}/></Link></Icon>

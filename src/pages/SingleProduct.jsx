@@ -14,7 +14,6 @@ const SingleProduct = () => {
   useEffect(() => {
     const getProduct = async() => {
       const {data} = await axios.get(`http://localhost:5000/api/products/find/${id}`)
-      console.log(data)
       setProduct(data);
     }
     getProduct();
@@ -26,7 +25,7 @@ const SingleProduct = () => {
       <Announcement/>
 
       <SingleProductContainer>
-        <ProductImage src={product.image} alt="product_image"/>
+        <ProductImage src={product.img} alt="product_image"/>
         <ProductDetails>
           <Title name="product_name">{product.title}</Title>
           <Description name="product_desc">{product.desc}</Description>

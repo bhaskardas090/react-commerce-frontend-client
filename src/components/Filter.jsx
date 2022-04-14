@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-const Filter = ({filters, setFilters, setSort, filteredProducts, setFilteredProducts, categoryProducts}) => {
+const Filter = ({filters, setFilters, setSortFilter, sortFilter, filteredProducts, setFilteredProducts, categoryProducts}) => {
+  
   const handleFilter = (e) => {
     const {name,value}=e.target;
     const updatedFilters = {...filters, [name]: value};
@@ -10,11 +11,24 @@ const Filter = ({filters, setFilters, setSort, filteredProducts, setFilteredProd
         return product[key].includes(value);
       })
     ))
-    console.log("Filtered Products: ",filteredProducts)
   } 
 
   const handleSort = (e) => {
-    setSort(e.target.value);
+    const sortFilter = e.target.value;
+    setSortFilter(sortFilter);
+    const catProducts = [...categoryProducts];
+
+    if(sortFilter === "asc"){
+        setFilteredProducts(catProducts.sort((a,b) =>{
+          return a.price - b.price;
+        }))
+    } else if(sortFilter === "desc") {
+        setFilteredProducts(catProducts.sort((a,b) => {
+          return b.price - a.price;
+        }))
+    } else if(sortFilter === "newest") {
+      setFilteredProducts(categoryProducts.reverse());
+    }
   } 
 
   const handleClick = (e) => {
@@ -45,7 +59,7 @@ const Filter = ({filters, setFilters, setSort, filteredProducts, setFilteredProd
       <SortPart>
         <Title>Sort Products:</Title>
         <Choice name="sort" onChange={handleSort} onClick={handleClick}>
-          <Select >Sort</Select>
+          <Select>Sort</Select>
           <Select value="newest">Newest</Select>
           <Select value="asc">Price(asc)</Select>
           <Select value="desc">Price(desc)</Select>

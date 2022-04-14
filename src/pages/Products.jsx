@@ -11,7 +11,7 @@ import axios from 'axios';
 const Products = () => {
   const {category} = useParams();
   const [filters, setFilters] = useState({});
-  const [sort, setSort] = useState("");
+  const [sortFilter, setSortFilter] = useState("");
   const [categoryProducts, setCategoryProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -25,18 +25,18 @@ const Products = () => {
       }
     }
     getCategoryProducts()
-    console.log("Category Products", categoryProducts);
   }, [category])
 
 
   // console.log("Products Page",filters)
   // console.log("Products Page",sort)
   // console.log(category);
+  console.log("Category Products", categoryProducts)
   return (
     <>
       <Navbar/>
       <Announcement/>
-      <Filter filteredProducts={filteredProducts} setCategoryProducts={setCategoryProducts} categoryProducts={categoryProducts} filters={filters} setFilters={setFilters} setSort={setSort} sort={sort} category={category} setFilteredProducts={setFilteredProducts}/>
+      <Filter filteredProducts={filteredProducts} setCategoryProducts={setCategoryProducts} categoryProducts={categoryProducts} filters={filters} setFilters={setFilters} setSortFilter={setSortFilter} sortFilter={sortFilter} category={category} setFilteredProducts={setFilteredProducts}/>
       <Productlist categoryProducts={categoryProducts} filteredProducts={filteredProducts}/>
       <Footer/>
     </>
