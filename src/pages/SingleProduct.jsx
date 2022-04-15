@@ -7,9 +7,14 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import { useRef } from 'react';
 const SingleProduct = () => {
   const [product, setProduct] = useState({})
   const {id} = useParams();
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState();
+  const [size, setSize] = useState();
+  const selectRef= useRef();
 
   useEffect(() => {
     const getProduct = async() => {
@@ -19,6 +24,14 @@ const SingleProduct = () => {
     getProduct();
   },[id])
 
+  const handleQuantity =  (type) => {
+    if(type === "inc") 
+      quantity >= 1 && setQuantity(prev => prev +1);
+    if(type === 'dec')
+      quantity > 1 && setQuantity(prev => prev - 1);
+  }
+
+  console.log(size, color)
   return (
     <>
       <Navbar/>
@@ -33,22 +46,21 @@ const SingleProduct = () => {
           <ProductFilter>
             <FilterWrapper>
               <SubTitle>Color: </SubTitle>
-                {product?.color?.map(c => <SelectColor color={c}/>)}
+                {product?.color?.map(c => <SelectColor color={c} key={c} onClick={() => setColor(c)}/>)}
               </FilterWrapper>
             <FilterWrapper>
               <SubTitle>Size: </SubTitle>
-              <Choice name="size">
-                <Select value="m">M</Select>
-                <Select value="l">L</Select>
-                <Select value="xl">XL</Select>
+              <Choice name="size" onChange={(e) => setSize(e.target.value)} onClick={(e)=> e.target[0].disabled = true}>
+                <Select ref={selectRef} >Select</Select>
+                {product?.size?.map(s => <Select value={s} key={s}>{s}</Select>)}
               </Choice>
             </FilterWrapper>
           </ProductFilter>
           <AddContainer>
             <Count>
-              <CountChange>-</CountChange>
-              <CountValue>1</CountValue>
-              <CountChange>+</CountChange>
+              <CountChange onClick={() => handleQuantity("dec")}>-</CountChange>
+              <CountValue>{quantity}</CountValue>
+              <CountChange onClick={() => handleQuantity("inc")}>+</CountChange>
             </Count>
             <AddButton>Add To Cart</AddButton>
           </AddContainer>
