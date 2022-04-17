@@ -1,21 +1,20 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
 import Announcement from '../components/Announcement'
 import Navbar from '../components/Navbar'
 import styled from 'styled-components';
 import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
-import { useRef } from 'react';
+import {addProduct} from '../redux/cartSlice';
+import {useDispatch} from "react-redux";
+
 const SingleProduct = () => {
   const [product, setProduct] = useState({})
   const {id} = useParams();
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState();
   const [size, setSize] = useState();
-  const selectRef= useRef();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const getProduct = async() => {
       const {data} = await axios.get(`http://localhost:5000/api/products/find/${id}`)
@@ -31,7 +30,12 @@ const SingleProduct = () => {
       quantity > 1 && setQuantity(prev => prev - 1);
   }
 
-  console.log(size, color)
+  const handleAddToCart = () => {
+    console.log("Button Clicked")
+    dispatch(addProduct({...product, color, size, quantity}))
+    console.log({...product,color,size,quantity});
+  }
+  // console.log(size, color)
   return (
     <>
       <Navbar/>
@@ -51,7 +55,7 @@ const SingleProduct = () => {
             <FilterWrapper>
               <SubTitle>Size: </SubTitle>
               <Choice name="size" onChange={(e) => setSize(e.target.value)} onClick={(e)=> e.target[0].disabled = true}>
-                <Select ref={selectRef} >Select</Select>
+                <Select>Select</Select>
                 {product?.size?.map(s => <Select value={s} key={s}>{s}</Select>)}
               </Choice>
             </FilterWrapper>
@@ -62,7 +66,7 @@ const SingleProduct = () => {
               <CountValue>{quantity}</CountValue>
               <CountChange onClick={() => handleQuantity("inc")}>+</CountChange>
             </Count>
-            <AddButton>Add To Cart</AddButton>
+            <AddButton onClick={handleAddToCart}>Add To Cart</AddButton>
           </AddContainer>
         </ProductDetails>
       </SingleProductContainer>

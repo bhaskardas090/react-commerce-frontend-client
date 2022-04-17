@@ -2,8 +2,10 @@ import React from 'react'
 import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import {useSelector} from 'react-redux';
 
 const Navbar = () => {
+  const quantity = useSelector(state => state.cart.quantity);
   return (
     <NavbarContainer>
       <Left>
@@ -22,7 +24,7 @@ const Navbar = () => {
         <CartSection>
           <Link to="/cart" style={{fontSize:'inherit', color:'inherit', textDecoration:'none'}}>
           <AiOutlineShoppingCart style={{fontSize:'2.5rem'}}/>
-          <CartCount>7</CartCount>
+          <CartCount>{quantity}</CartCount>
           </Link>
         </CartSection>
       </Right>
