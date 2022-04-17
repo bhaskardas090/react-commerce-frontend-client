@@ -2,7 +2,12 @@ import React from 'react'
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Navbar from '../components/Navbar';
+import {AiOutlinePlus, AiOutlineMinus} from "react-icons/ai";
+import {useSelector} from 'react-redux';
 const Cart = () => {
+  const cart = useSelector(state => state.cart)
+
+  console.log(cart)
   return (
     <CartPage>
       <Navbar/>
@@ -12,53 +17,39 @@ const Cart = () => {
       <TopPart>
         <Button type="shopping">CONTINUE SHOPPING</Button>
         <InfoWrapper>
-          <Info>Shopping Bag (2)</Info>
+          <Info>`Shopping Bag (${cart.quantity})`</Info>
           <Info>Your Wishlist (0)</Info>
         </InfoWrapper>
         <Button>CHECKOUT NOW</Button>
       </TopPart>
       <CartSection>
         <CartProducts>
-          <Product>
-            <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"/>
+          {cart.products.map(product => (
+            <Product>
+            <Image src={product.img}/>
             <Details>
-              <ProductTitle><Bold>Product:</Bold> JESSIE THUNDER SHOE</ProductTitle>
-              <ProductId><Bold>ID:</Bold> 739473874</ProductId>
-              <ProductColor color="black"/>
-              <ProductSize><Bold>Size:</Bold> 37.5</ProductSize>
+              <ProductTitle><Bold>Product:</Bold> {product.title}</ProductTitle>
+              <ProductId><Bold>ID:</Bold> {product._id}</ProductId>
+              <ProductColor color={product.color}/>
+              <ProductSize><Bold>Size:</Bold> {product.size} </ProductSize>
             </Details>
             <Calc>
               <Count>
-                <CountChange>+</CountChange>
-                <CountValue>1</CountValue>
-                <CountChange>-</CountChange>
+                <CountChange><AiOutlineMinus style={{fontSize: '3rem'}}/></CountChange>
+                <CountValue>{product.quantity}</CountValue>
+                <CountChange><AiOutlinePlus style={{fontSize: '3rem'}}/></CountChange>
               </Count>
-              <Price>$30</Price>
+              <Price>$ {product.price*product.quantity}</Price>
             </Calc>
           </Product>
-          <Product>
-            <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png"/>
-            <Details>
-              <ProductTitle><Bold>Product:</Bold> HAKURA T-SHIRT</ProductTitle>
-              <ProductId><Bold>ID:</Bold> 56632434</ProductId>
-              <ProductColor color="gray"/>
-              <ProductSize><Bold>Size:</Bold> 37.5</ProductSize>
-            </Details>
-            <Calc>
-              <Count>
-                <CountChange>+</CountChange>
-                <CountValue>1</CountValue>
-                <CountChange>-</CountChange>
-              </Count>
-              <Price>$30</Price>
-            </Calc>
-          </Product>
+          ))}
+          
         </CartProducts>
         <OrderSummary>
           <Title style={{textAlign: 'left'}}>ORDER SUMMARY</Title>
           <SubTotal>
             <SummaryTitle>Subtotal</SummaryTitle>
-            <SummaryValue>$ 80</SummaryValue>
+            <SummaryValue>$ {cart.total}</SummaryValue>
           </SubTotal>
           <EstimatedShipping>
             <SummaryTitle>Estimated Shipping</SummaryTitle>
@@ -70,7 +61,7 @@ const Cart = () => {
           </ShippingDiscount>
           <Total>
             <SummaryTitle type="total">Total</SummaryTitle>
-            <SummaryValue type="total">$ 80</SummaryValue>
+            <SummaryValue type="total">$ {cart.total}</SummaryValue>
           </Total>
           <Button type="total">CHECKOUT NOW</Button>
         </OrderSummary>
@@ -97,9 +88,6 @@ const Title = styled.h1`
   font-weight: 100;
 
 `
-const SubTitle = styled.p`
-  
-`
 const Bold = styled.strong`
   font-size: 2rem;
 `
@@ -123,7 +111,7 @@ const InfoWrapper = styled.div`
   display: flex;
   gap: 2rem;
 `
-const Info = styled.p`
+const Info = styled.div`
   text-decoration: underline;
   font-size: 1.8rem;
   cursor: pointer;
@@ -188,7 +176,7 @@ const Count = styled.div`
 `
 const CountValue = styled.div`
   font-size: 2.5rem;
-  width: 4rem;
+  width: 2.3rem;
   text-align: center;
 `
 const CountChange = styled.span`

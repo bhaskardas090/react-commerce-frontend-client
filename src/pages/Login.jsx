@@ -1,18 +1,33 @@
 import React from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux';
+import {login} from '../redux/apiCalls';
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const {isFetching, error} = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(dispatch, {username, password});
+    console.log({username, password})
+  }
+
   return (
     <LoginPage>
-      <Form>
+      <Form onSubmit={handleSubmit}>
       <Title>SIGN IN</Title>
         <InputWrapper>
-          <Input type="text" placeholder="username"/>
-          <Input type="password" placeholder="password"/>
+          <Input type="text" placeholder="username" onChange={e => setUsername(e.target.value)}/>
+          <Input type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
         </InputWrapper>
         <Button>CREATE</Button>
         <Info>FORGOT PASSOWRD</Info>
         <Info>CREATE AN ACCOUNT</Info>
       </Form>
+      {error && <p>Something Went Worng...</p>}
     </LoginPage>
   )
 }
