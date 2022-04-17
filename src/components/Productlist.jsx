@@ -10,7 +10,7 @@ const Productlist = ({categoryProducts, filteredProducts}) => {
   useEffect(() => {
     const getProducts = async() => {
       try {
-        const {data} = await axios.get("http://localhost:5000/api/products");
+        const {data} = await axios.get("https://react-commerce-backend.herokuapp.com/api/products");
         setProducts(data);     
       } catch (err) {
         console.log(err) 

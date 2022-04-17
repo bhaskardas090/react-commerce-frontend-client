@@ -18,7 +18,7 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const getProduct = async() => {
-      const {data} = await axios.get(`http://localhost:5000/api/products/find/${id}`)
+      const {data} = await axios.get(`https://react-commerce-backend.herokuapp.com/api/products/find/${id}`)
       setProduct(data);
     }
     getProduct();
