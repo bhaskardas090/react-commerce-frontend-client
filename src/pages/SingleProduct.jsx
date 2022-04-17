@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import {addProduct} from '../redux/cartSlice';
 import {useDispatch} from "react-redux";
+import {AiOutlinePlus, AiOutlineMinus} from "react-icons/ai";
 
 const SingleProduct = () => {
   const [product, setProduct] = useState({})
@@ -62,9 +63,9 @@ const SingleProduct = () => {
           </ProductFilter>
           <AddContainer>
             <Count>
-              <CountChange onClick={() => handleQuantity("dec")}>-</CountChange>
+              <CountChange onClick={() => handleQuantity("dec")}><AiOutlineMinus style={{fontSize: '3rem'}}/></CountChange>
               <CountValue>{quantity}</CountValue>
-              <CountChange onClick={() => handleQuantity("inc")}>+</CountChange>
+              <CountChange onClick={() => handleQuantity("inc")}><AiOutlinePlus style={{fontSize: '3rem'}}/></CountChange>
             </Count>
             <AddButton onClick={handleAddToCart}>Add To Cart</AddButton>
           </AddContainer>
