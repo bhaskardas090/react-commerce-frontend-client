@@ -8,3 +8,23 @@
   box-sizing: border-box;
   font-size: 10px;
 }
+.mobile{
+  display: none;
+}
+
+@media only screen and (max-width: 1200px) {
+  .main{
+    display: none;  
+  }
+  .mobile{
+    display: inline;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+  .message{
+    font-size: 4rem;
+    padding: 3rem;
+    text-align: center;
+  }
+}

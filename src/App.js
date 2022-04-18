@@ -11,22 +11,31 @@ const App = () => {
   const user = useSelector((state) => state.user.currentUser);
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/login"
-            element={user ? <Navigate to="/" /> : <Login />}
-          />
-          <Route
-            path="/register"
-            element={user ? <Navigate to="/" /> : <Register />}
-          />
-          <Route path="/product/:id" element={<SingleProduct />} />
-          <Route path="/products/:category" element={<Products />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="mobile">
+        <p className="message">
+          Please view this site in Desktop.
+          <br />
+          It is not yet designed for mobile view.
+        </p>
+      </div>
+      <div className="main">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/login"
+              element={user ? <Navigate to="/" /> : <Login />}
+            />
+            <Route
+              path="/register"
+              element={user ? <Navigate to="/" /> : <Register />}
+            />
+            <Route path="/product/:id" element={<SingleProduct />} />
+            <Route path="/products/:category" element={<Products />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 };
